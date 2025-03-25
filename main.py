@@ -10,15 +10,20 @@ def main():
     input = ConsoleInput(console)
     output = ConsoleOutput(console)
 
+    exit_commands = ["exit", "quit", "bye"]
+
     output.display_message(Message("Hello, how can I help you today?"))
     output.display_message(Message("Available commands:"))
     output.table(Table(headers=["Command", "Description"], data=[[command.call_name, command.description] for command in registry.get_all_commands()]))
 
     while True:
-        user_input = input.input([command.call_name for command in registry.get_all_commands()])
+        user_input = input.input([*exit_commands, *[command.call_name for command in registry.get_all_commands()]   ])
         command = registry.get_command(user_input.command)
         if command:
             command.execute(input, output,user_input.args)
+        elif user_input.command in exit_commands:
+            output.display_message(Message("Goodbye!"))
+            break
         else:
             output.display_message(Message("Invalid command. Please try again."))
 
