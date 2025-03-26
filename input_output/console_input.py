@@ -25,6 +25,9 @@ class ConsoleInput(InputInterface):
 
     def _parse_user_input(self, input: str) -> UserInput:
         """Parse user input"""
+        input = input.strip()
+        if len(input) == 0:
+            return UserInput(input, "", [])
         cmd, *args = input.split()
         cmd = cmd.strip().lower()
         return UserInput(input, cmd, args)
