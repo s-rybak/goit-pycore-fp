@@ -7,6 +7,7 @@ from prompt_toolkit.completion import Completer, Completion
 
 from .base import InputInterface, Message, Table, UserInput
 
+
 class HintsCompleter(Completer):
     def __init__(self, hints):
         self.hints = hints
@@ -17,11 +18,11 @@ class HintsCompleter(Completer):
             if hint.startswith(word):
                 yield Completion(hint, start_position=-len(word))
 
+
 class ConsoleInput(InputInterface):
     def __init__(self, console: Console):
         self.console = console
         self.current_hints = []
-
 
     def _parse_user_input(self, input: str) -> UserInput:
         """Parse user input"""
@@ -35,21 +36,23 @@ class ConsoleInput(InputInterface):
     def input(self, hints: list = []) -> UserInput:
         """Input from user with autocompletion"""
         self.current_hints = hints if hints else []
-        
+
         completer = HintsCompleter(self.current_hints)
-       
+
         user_input = prompt(">>> ", completer=completer)
-        
-        print("\033[A\033[2K", end="", flush=True)  
-       
+
+        print("\033[A\033[2K", end="", flush=True)
+
         text = Text(f"🧑 {user_input}")
-        self.console.print(Panel(
-            text, 
-            box=box.ROUNDED, 
-            border_style="purple",
-            width=None,  
-            expand=False, 
-            padding=(0, 1)
-        ))
+        self.console.print(
+            Panel(
+                text,
+                box=box.ROUNDED,
+                border_style="purple",
+                width=None,
+                expand=False,
+                padding=(0, 1),
+            )
+        )
 
         return self._parse_user_input(user_input)

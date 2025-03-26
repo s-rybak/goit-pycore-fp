@@ -1,7 +1,8 @@
 import pickle
 import uuid
 import os
-from .base import StorageInterface 
+from .base import StorageInterface
+
 
 class PickleStorage(StorageInterface):
     def __init__(self, file_path: str):
@@ -13,7 +14,7 @@ class PickleStorage(StorageInterface):
                 self.data = pickle.load(f)
         except FileNotFoundError:
             pass
-        
+
     def getNextId(self) -> str:
         return str(uuid.uuid4())
 
@@ -24,16 +25,16 @@ class PickleStorage(StorageInterface):
         with open(self.file_path, "wb") as f:
             pickle.dump(self.data, f)
         return id
-    
+
     def getAll(self) -> list[any]:
         return list(self.data.values())
-    
+
     def find(self, filter: callable) -> list[any]:
         return [item for item in self.data.values() if filter(item)]
-    
+
     def getById(self, id: str) -> any:
         return self.data.get(id)
-    
+
     def delete(self, id: str) -> bool:
         if id in self.data:
             del self.data[id]
