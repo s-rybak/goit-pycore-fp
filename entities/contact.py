@@ -7,11 +7,11 @@ class Contact:
     id: str
     name: str
     phone: str
-    email: Optional[str] = None
-    address: Optional[str] = None
-    birthday: Optional[str] = None  
+    email: str|None = None
+    address: str|None = None
+    birthday: str|None = None
 
-    def __init__(self, name: str, phone: str, email: Optional[str] = None, address: Optional[str] = None, birthday: Optional[str] = None):
+    def __init__(self, name: str, phone: str, email: str|None = None, address: str|None = None, birthday: str|None = None):
         self.id = ""
         self.name = name
         self.phone = phone
