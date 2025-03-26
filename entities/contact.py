@@ -11,7 +11,7 @@ class Contact:
     birthday: str
 
     #Add a constructor becouse we need to ingonre creation of id
-    def __init__(self, name: str, phone: str, email: str, address: str, birthday: str):
+    def __init__(self, name: str, phone: str, email: str, address: str, birthday: strgit a):
         self.id = ""
         self.name = name
         self.phone = phone

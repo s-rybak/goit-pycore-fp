@@ -34,8 +34,8 @@ class ContactRepository(StorageRepositoryInterface):
     def findByAddress(self, address: str) -> list[Contact]:
         return self.storage.find(lambda contact: contact.address == address)
 
-    # def findByBitrhday(self, birthday: str) -> list[Contact]:
-    #     return self.storage.find(lambda contact: contact.birthday == birthday)
+    def findByBirthday(self, birthday: str) -> list[Contact]:
+        return self.storage.find(lambda contact: contact.birthday == birthday)
     
     def getAll(self) -> list[Contact]:
         return self.storage.getAll()
