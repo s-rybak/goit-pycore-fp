@@ -3,7 +3,6 @@ from rich.table import Table as RichTable
 from rich.panel import Panel
 from rich.text import Text
 from rich import box
-import readline
 
 from .base import OutputInterface, Message, Table
 
