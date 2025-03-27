@@ -3,6 +3,7 @@ from input_output.base import InputInterface, OutputInterface, Message
 from repositories.contact_repository import ContactRepository
 from entities.contact import Contact
 
+
 class EditContactCommand(CommandInterface):
     def __init__(self, contact_repository: ContactRepository):
         self._contact_repository = contact_repository
@@ -34,11 +35,12 @@ class EditContactCommand(CommandInterface):
         if not user_input:
             output.display_message(Message("No matching contact found."))
             return
-        
-        output.display_message(Message("Enter the field to edit (name, phone, email, address, birthday):"))
+
+        output.display_message(
+            Message("Enter the field to edit (name, phone, email, address, birthday):")
+        )
         field_input = input.input()
         field = field_input.command
-          
 
         if field not in ("name", "phone", "email", "address", "birthday"):
             output.error(Message("Invalid field."))

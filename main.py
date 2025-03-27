@@ -26,20 +26,25 @@ def main():
     )
 
     while True:
-        user_input = input.input(
-            [
-                *exit_commands,
-                *[command.call_name for command in registry.get_all_commands()],
-            ]
-        )
-        command = registry.get_command(user_input.command)
-        if command:
-            command.execute(input, output, user_input.args)
-        elif user_input.command in exit_commands:
-            output.display_message(Message("Goodbye!"))
-            break
-        else:
-            output.display_message(Message("Invalid command. Please try again."))
+        try:
+            user_input = input.input(
+                [
+                    *exit_commands,
+                    *[command.call_name for command in registry.get_all_commands()],
+                ]
+            )
+            command = registry.get_command(user_input.command)
+            if command:
+                command.execute(input, output, user_input.args)
+            elif user_input.command in exit_commands:
+                output.display_message(Message("Goodbye!"))
+                break
+            else:
+                output.display_message(Message("Invalid command. Please try again."))
+        except Exception as e:
+            output.error(Message("Whoops! Something went wrong."))
+            output.error(Message(str(e)))
+            output.display_message(Message("Sorry, I'll try again."))
 
 
 if __name__ == "__main__":

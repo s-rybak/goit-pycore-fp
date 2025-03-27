@@ -1,8 +1,7 @@
-
-
 from commands.base import CommandInterface
 from repositories.contact_repository import ContactRepository
 from input_output.base import InputInterface, OutputInterface, Message
+
 
 class DeleteContactCommand(CommandInterface):
     def __init__(self, contact_repository: ContactRepository):
@@ -34,8 +33,12 @@ class DeleteContactCommand(CommandInterface):
             return
 
         contact_id_to_delete = user_input.args[0]
- 
+
         if self._contact_repository.delete(contact_id_to_delete):
-            output.success(f"Contact with ID {contact_id_to_delete} has been deleted successfully.")
+            output.success(
+                f"Contact with ID {contact_id_to_delete} has been deleted successfully."
+            )
         else:
-            output.error(f"Failed to delete the contact with ID {contact_id_to_delete}.")
+            output.error(
+                f"Failed to delete the contact with ID {contact_id_to_delete}."
+            )
