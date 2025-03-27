@@ -6,6 +6,10 @@ from repositories.contact_repository import ContactRepository
 from storage.pickle_storage import PickleStorage
 from commands.add_contact import AddContactCommand
 
+from repositories.note_repository import NoteRepository
+from commands.add_note import AddNoteCommand
+from commands.find_note import FindNoteCommand
+
 
 class CommandRegistry:
     def __init__(self):
@@ -25,9 +29,13 @@ class CommandRegistry:
 
 
 contact_repository = ContactRepository(PickleStorage("var/data/contacts.pkl"))
+note_repository = NoteRepository(PickleStorage("var/data/notes.pkl"))
+
 registry = CommandRegistry()
 registry.register_command(GreetCommand())
 
 registry.register_command(TestAllContactsCommand(contact_repository))
 registry.register_command(AddContactCommand(contact_repository))
 registry.register_command(FindContactCommand(contact_repository))
+registry.register_command(AddNoteCommand(note_repository))
+registry.register_command(FindNoteCommand(note_repository))
