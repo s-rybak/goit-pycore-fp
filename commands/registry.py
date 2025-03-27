@@ -2,6 +2,8 @@ from commands.base import CommandInterface
 from commands.greet_command import GreetCommand
 from commands.test_get_all_contacts import TestAllContactsCommand
 from commands.find_contact import FindContactCommand
+from commands.edit_contact import EditContactCommand
+from commands.delete_contact import DeleteContactCommand
 from repositories.contact_repository import ContactRepository
 from storage.pickle_storage import PickleStorage
 from commands.add_contact import AddContactCommand
@@ -31,3 +33,5 @@ registry.register_command(GreetCommand())
 registry.register_command(TestAllContactsCommand(contact_repository))
 registry.register_command(AddContactCommand(contact_repository))
 registry.register_command(FindContactCommand(contact_repository))
+registry.register_command(EditContactCommand(contact_repository))
+registry.register_command(DeleteContactCommand(contact_repository))
