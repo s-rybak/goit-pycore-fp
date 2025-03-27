@@ -2,7 +2,7 @@
 
 from commands.base import CommandInterface
 from repositories.contact_repository import ContactRepository
-from input_output.base import InputInterface, OutputInterface
+from input_output.base import InputInterface, OutputInterface, Message
 
 class DeleteContactCommand(CommandInterface):
     def __init__(self, contact_repository: ContactRepository):
@@ -14,7 +14,7 @@ class DeleteContactCommand(CommandInterface):
 
     @property
     def description(self) -> str:
-        return "Delete a contact by selecting their name"
+        return "Delete contact by name"
 
     @property
     def call_name(self) -> str:
@@ -25,12 +25,12 @@ class DeleteContactCommand(CommandInterface):
 
         contacts = self._contact_repository.getAll()
 
-        hint = [f"{contact.name} {contact.id} {contact.phone}" for contact in contacts]
+        hints = [f"{contact.name} {contact.id} {contact.phone}" for contact in contacts]
 
-        user_input = input.input(hint)
+        user_input = input.input(hints)
 
         if not user_input:
-            output.error("No input received. Operation aborted.")
+            output.display_message(Message("No input received. Operation aborted."))
             return
 
         contact_id_to_delete = user_input.args[0]
