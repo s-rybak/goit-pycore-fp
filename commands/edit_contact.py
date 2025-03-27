@@ -24,11 +24,12 @@ class EditContactCommand(CommandInterface):
 
         contacts = self._contact_repository.getAll()
 
-        hints = [f"{contact.name} {contact.id} {contact.phone}" for contact in contacts]
+        hints = [f"{contact.name} {contact.phone} {contact.id}" for contact in contacts]
 
         user_input = input.input(hints)
+        print("user_input", user_input)
 
-        contact_id_to_edit = user_input.args[0]
+        contact_id_to_edit = user_input.args[1]
 
         if not user_input:
             output.display_message(Message("No matching contact found."))
@@ -51,4 +52,4 @@ class EditContactCommand(CommandInterface):
 
         self._contact_repository.update(updated_contact)
 
-        output.success(Message(f"Contact {contact_id_to_edit} updated successfully."))
+        output.success(Message("Contact updated successfully."))
