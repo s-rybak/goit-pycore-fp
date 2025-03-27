@@ -2,8 +2,9 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 from rich import box
-from prompt_toolkit import prompt
+from prompt_toolkit import PromptSession
 from prompt_toolkit.completion import Completer, Completion
+from prompt_toolkit.history import InMemoryHistory
 
 from .base import InputInterface, Message, Table, UserInput
 
@@ -23,6 +24,8 @@ class ConsoleInput(InputInterface):
     def __init__(self, console: Console):
         self.console = console
         self.current_hints = []
+        self.history = InMemoryHistory()
+        self.session = PromptSession(history=self.history)
 
     def _parse_user_input(self, input: str) -> UserInput:
         """Parse user input"""
@@ -39,7 +42,7 @@ class ConsoleInput(InputInterface):
 
         completer = HintsCompleter(self.current_hints)
 
-        user_input = prompt(">>> ", completer=completer)
+        user_input = self.session.prompt(">>> ", completer=completer)
 
         print("\033[A\033[2K", end="", flush=True)
 
