@@ -2,6 +2,7 @@ from commands.base import CommandInterface
 from input_output.base import InputInterface, OutputInterface, Message
 from repositories.contact_repository import ContactRepository
 from entities.contact import Contact
+from validators.email_phone_validators import validate_email, validate_phone
 
 
 class EditContactCommand(CommandInterface):
@@ -21,7 +22,7 @@ class EditContactCommand(CommandInterface):
         return "edit"
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
-        output.info("Please enter the name of the user you want to delete:")
+        output.info("Please enter the name of the user you want to edit:")
 
         contacts = self._contact_repository.getAll()
 
@@ -46,8 +47,20 @@ class EditContactCommand(CommandInterface):
             output.error(Message("Invalid field."))
             return
 
-        output.display_message(Message(f"Enter new value for {field}:"))
-        new_value = input.input().text
+        new_value = ""
+        while True:
+            output.display_message(Message(f"Enter new value for {field}:"))
+            new_value = input.input().text
+
+            if field == "email" and not validate_email(new_value):
+                output.error(Message("Please enter a valid email. Example: user@example.com"))
+                continue 
+
+            if field == "phone" and not validate_phone(new_value):
+                output.error(Message("Please enter a valid phone number. Example: +380971234567 or 380971234567"))
+                continue 
+
+            break
 
         updated_contact = self._contact_repository.findById(contact_id_to_edit)
         setattr(updated_contact, field, new_value)
