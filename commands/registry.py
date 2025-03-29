@@ -7,6 +7,7 @@ from commands.delete_contact import DeleteContactCommand
 from repositories.contact_repository import ContactRepository
 from storage.pickle_storage import PickleStorage
 from commands.add_contact import AddContactCommand
+from commands.help_command import HelpCommand
 from commands.find_upcoming_birthdays import BirthdayInDaysCommand
 
 class CommandRegistry:
@@ -28,6 +29,8 @@ class CommandRegistry:
 
 contact_repository = ContactRepository(PickleStorage("var/data/contacts.pkl"))
 registry = CommandRegistry()
+help_command = HelpCommand(registry)
+registry.register_command(help_command)
 registry.register_command(GreetCommand())
 
 registry.register_command(TestAllContactsCommand(contact_repository))
