@@ -7,7 +7,7 @@ from commands.delete_contact import DeleteContactCommand
 from repositories.contact_repository import ContactRepository
 from storage.pickle_storage import PickleStorage
 from commands.add_contact import AddContactCommand
-
+from commands.find_upcoming_birthdays import BirthdayInDaysCommand
 
 class CommandRegistry:
     def __init__(self):
@@ -35,3 +35,4 @@ registry.register_command(AddContactCommand(contact_repository))
 registry.register_command(FindContactCommand(contact_repository))
 registry.register_command(EditContactCommand(contact_repository))
 registry.register_command(DeleteContactCommand(contact_repository))
+registry.register_command(BirthdayInDaysCommand(contact_repository))
