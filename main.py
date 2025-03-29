@@ -1,7 +1,6 @@
 from rich.console import Console
 from input_output.console_input import ConsoleInput
 from input_output.console_output import ConsoleOutput
-from commands.greet_command import GreetCommand
 from input_output.base import Message, Table
 from commands.registry import registry
 
@@ -33,6 +32,10 @@ def main():
                     *[command.call_name for command in registry.get_all_commands()],
                 ]
             )
+
+            if not user_input.command:
+                continue
+
             command = registry.get_command(user_input.command)
             if command:
                 command.execute(input, output, user_input.args)

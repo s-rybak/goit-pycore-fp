@@ -30,10 +30,11 @@ class FindNoteCommand(CommandInterface):
         search_methods = {
             "title": self.note_repository.findByTitle,
             "note": self.note_repository.findContains,
+            "tag": self.note_repository.findByTag,
         }
 
         if field not in search_methods:
-            output.display_message(Message("Invalid field. Use: title, note"))
+            output.display_message(Message("Invalid field. Use: title, note, tag"))
             return
 
         results = search_methods[field](value)

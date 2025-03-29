@@ -46,16 +46,17 @@ class ConsoleInput(InputInterface):
 
         print("\033[A\033[2K", end="", flush=True)
 
-        text = Text(f"🧑 {user_input}")
-        self.console.print(
-            Panel(
-                text,
-                box=box.ROUNDED,
-                border_style="purple",
-                width=None,
-                expand=False,
-                padding=(0, 1),
+        if user_input:
+            text = Text(f"🧑 {user_input}")
+            self.console.print(
+                Panel(
+                    text,
+                    box=box.ROUNDED,
+                    border_style="purple",
+                    width=None,
+                    expand=False,
+                    padding=(0, 1),
+                )
             )
-        )
 
         return self._parse_user_input(user_input)

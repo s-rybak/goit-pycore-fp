@@ -27,7 +27,17 @@ class AddNoteCommand(CommandInterface):
         output.display_message(Message("Enter the note:"))
         note = input.input().text
 
-        note = Note(title, note)
+        output.display_message(Message("Would you like to add tags? (yes/no)"))
+        add_tags = input.input(["yes", "no"]).text
+        tags = []
+
+        if add_tags == "yes":
+            output.display_message(Message("Enter the tags separated by commas:"))
+            tags = input.input().text.split(",")
+            tags = [tag.strip() for tag in tags]
+            tags = [tag for tag in tags if tag]
+
+        note = Note(title, note, tags)
         self.repository.create(note)
 
         output.display_message(Message(f"Note {note.title} added successfully!"))

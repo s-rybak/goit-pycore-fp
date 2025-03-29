@@ -1,6 +1,5 @@
 from commands.base import CommandInterface
-from commands.greet_command import GreetCommand
-from commands.test_get_all_contacts import TestAllContactsCommand
+from commands.get_all_contacts import AllContactsCommand
 from commands.find_contact import FindContactCommand
 from commands.edit_contact import EditContactCommand
 from commands.delete_contact import DeleteContactCommand
@@ -42,9 +41,8 @@ note_repository = NoteRepository(PickleStorage("var/data/notes.pkl"))
 registry = CommandRegistry()
 help_command = HelpCommand(registry)
 registry.register_command(help_command)
-registry.register_command(GreetCommand())
 
-registry.register_command(TestAllContactsCommand(contact_repository))
+registry.register_command(AllContactsCommand(contact_repository))
 registry.register_command(AddContactCommand(contact_repository))
 registry.register_command(FindContactCommand(contact_repository))
 registry.register_command(EditContactCommand(contact_repository))
