@@ -82,15 +82,6 @@ Once the application is running, you can use the following commands:
 - `greet` - Simple greeting command
 - `exit` / `quit` / `bye` - Exit the application
 
-├───────────────────┼──────────────────────────────────────────────────────────┤
-│ help              │ Display all available commands and their descriptions    │
-│ greet             │ Greet the user                                           │
-│ test_all_contacts │ Test all contact                                         │
-│ add_contact       │ Add a new contact                                        │
-│ find              │ Find contacts by name, phone, email, address or birthday │
-│ edit              │ Edit contact by name                                     │
-│ delete            │ Delete contact by name                                   │
-└───────────────────┴──────────────────────────────────────────────────────────┘
 
 ### Example Commands
 
