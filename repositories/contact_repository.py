@@ -40,3 +40,6 @@ class ContactRepository(StorageRepositoryInterface):
 
     def getAll(self) -> list[Contact]:
         return self.storage.getAll()
+
+    def findById(self, id: str) -> Contact | None:
+        return self.storage.getById(id)
