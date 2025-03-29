@@ -24,16 +24,14 @@ class DeleteContactCommand(CommandInterface):
 
         contacts = self._contact_repository.getAll()
 
-        hints = [f"{contact.name} {contact.phone} {contact.email} {contact.id}" for contact in contacts]
-
-
+        hints = [f"{contact.name} | {contact.phone} | {contact.id}" for contact in contacts]
         user_input = input.input(hints)
 
         if not user_input:
             output.display_message(Message("No input received. Operation aborted."))
             return
 
-        contact_id_to_delete = user_input.args[2]
+        contact_id_to_delete = user_input.text.split(" | ")[-1]
         contact_to_delete = self._contact_repository.findById(contact_id_to_delete)
 
         output.warning("Are you sure you want to delete this contact?\n\nType 'yes' to confirm, or anything else to cancel.")
