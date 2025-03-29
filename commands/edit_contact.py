@@ -46,8 +46,7 @@ class EditContactCommand(CommandInterface):
         output.display_message(
             Message("Enter the field to edit (name, phone, email, address, birthday):")
         )
-        field_input = input.input(["name", "phone", "email", "address", "birthday"])
-        field = field_input.text
+        field = input.input(["name", "phone", "email", "address", "birthday"]).text
 
         if field not in ("name", "phone", "email", "address", "birthday"):
             output.error(Message("Invalid field."))

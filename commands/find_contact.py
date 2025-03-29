@@ -23,7 +23,7 @@ class FindContactCommand(CommandInterface):
         output.info(
             "Enter the field to search by (name, phone, email, address, birthday):"
         )
-        field = input.input().text
+        field = input.input(["name", "phone", "email", "address", "birthday"]).text
 
         search_methods = {
             "name": self.contact_repository.findByName,

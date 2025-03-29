@@ -33,7 +33,7 @@ class DeleteContactCommand(CommandInterface):
             output.display_message(Message("No input received. Operation aborted."))
             return
 
-        contact_id_to_delete = user_input.text.split(" | ")[-1]
+        contact_id_to_delete = user_input.split(" | ")[-1]
         contact_to_delete = self._contact_repository.findById(contact_id_to_delete)
 
         output.warning(
