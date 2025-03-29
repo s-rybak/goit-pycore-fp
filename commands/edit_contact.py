@@ -21,25 +21,24 @@ class EditContactCommand(CommandInterface):
         return "edit_contact"
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
-        output.info("Please enter the name of the user you want to edit:")
+        output.info("Please enter the name of the user you want to delete:")
 
         contacts = self._contact_repository.getAll()
 
-        hints = [f"{contact.name} {contact.phone} {contact.email} {contact.id}" for contact in contacts]
-
+        hints = [f"{contact.name} | {contact.phone} | {contact.id}" for contact in contacts]
         user_input = input.input(hints)
-
-        contact_id_to_edit = user_input.args[2]
-
+        
         if not user_input:
             output.display_message(Message("No matching contact found."))
             return
 
+        contact_id_to_edit = user_input.text.split(" | ")[-1]
+        
         output.display_message(
             Message("Enter the field to edit (name, phone, email, address, birthday):")
         )
         field_input = input.input()
-        field = field_input.command
+        field = field_input.text
 
         if field not in ("name", "phone", "email", "address", "birthday"):
             output.error(Message("Invalid field."))
@@ -53,4 +52,4 @@ class EditContactCommand(CommandInterface):
 
         self._contact_repository.update(updated_contact)
 
-        output.success(Message("Contact updated successfully."))
+        output.success("Contact updated successfully.")
