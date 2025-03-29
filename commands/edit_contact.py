@@ -21,14 +21,15 @@ class EditContactCommand(CommandInterface):
         return "edit_contact"
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
-        output.info("Please enter the name of the user you want to delete:")
+        output.info("Please enter the name of the user you want to edit:")
 
         contacts = self._contact_repository.getAll()
 
-        hints = [f"{contact.name} {contact.phone} {contact.id}" for contact in contacts]
+        hints = [f"{contact.name} {contact.phone} {contact.email} {contact.id}" for contact in contacts]
 
         user_input = input.input(hints)
-        contact_id_to_edit = user_input.args[1]
+
+        contact_id_to_edit = user_input.args[2]
 
         if not user_input:
             output.display_message(Message("No matching contact found."))
