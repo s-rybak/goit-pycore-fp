@@ -39,6 +39,7 @@ class DeleteContactCommand(CommandInterface):
                 headers=["ID", "Name", "Phone", "Email", "Address", "Birthday"],
                 data=[
                     [
+                        contact_to_delete.id,
                         contact_to_delete.name,
                         contact_to_delete.phone,
                         contact_to_delete.email,
@@ -49,7 +50,7 @@ class DeleteContactCommand(CommandInterface):
             )
         )
 
-        confirmation = input.input().command.lower()
+        confirmation = input.input(['yes','no']).command.lower()
         if confirmation != "yes":
             output.display_message("Operation cancelled.")
             return
