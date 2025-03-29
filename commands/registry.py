@@ -15,6 +15,8 @@ from commands.edit_note import EditNoteCommand
 from commands.delete_note import DeleteNoteCommand
 from commands.find_note import FindNoteCommand
 
+from commands.help_command import HelpCommand
+from commands.find_upcoming_birthdays import BirthdayInDaysCommand
 
 class CommandRegistry:
     def __init__(self):
@@ -37,6 +39,8 @@ contact_repository = ContactRepository(PickleStorage("var/data/contacts.pkl"))
 note_repository = NoteRepository(PickleStorage("var/data/notes.pkl"))
 
 registry = CommandRegistry()
+help_command = HelpCommand(registry)
+registry.register_command(help_command)
 registry.register_command(GreetCommand())
 
 registry.register_command(TestAllContactsCommand(contact_repository))
@@ -51,5 +55,4 @@ registry.register_command(EditNoteCommand(note_repository))
 registry.register_command(FindNoteCommand(note_repository))
 registry.register_command(DeleteNoteCommand(note_repository))
 
-
-
+registry.register_command(BirthdayInDaysCommand(contact_repository))
