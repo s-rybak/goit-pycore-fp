@@ -1,6 +1,6 @@
 from commands.base import CommandInterface
 from repositories.contact_repository import ContactRepository
-from input_output.base import InputInterface, OutputInterface, Message
+from input_output.base import InputInterface, OutputInterface, Message, Table
 
 
 class DeleteContactCommand(CommandInterface):
@@ -33,12 +33,33 @@ class DeleteContactCommand(CommandInterface):
             return
 
         contact_id_to_delete = user_input.args[0]
+        contact_to_delete = self._contact_repository.findById(contact_id_to_delete)
+
+        output.warning("Are you sure you want to delete this contact?\n\nType 'yes' to confirm, or anything else to cancel.")
+        output.table(Table(
+                headers=["ID", "Name", "Phone", "Email", "Address", "Birthday"],
+                data=[
+                    [
+                        contact_to_delete.name,
+                        contact_to_delete.phone,
+                        contact_to_delete.email,
+                        contact_to_delete.address,
+                        contact_to_delete.birthday,
+                    ]
+                ],
+            )
+        )
+
+        confirmation = input.input().command.lower()
+        if confirmation != "yes":
+            output.display_message("Operation cancelled.")
+            return
 
         if self._contact_repository.delete(contact_id_to_delete):
             output.success(
-                f"Contact with ID {contact_id_to_delete} has been deleted successfully."
+                f"Contact {contact_to_delete.name} has been deleted successfully."
             )
         else:
             output.error(
-                f"Failed to delete the contact with ID {contact_id_to_delete}."
+                f"Failed to delete the contact."
             )
