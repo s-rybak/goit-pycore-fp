@@ -57,7 +57,7 @@ class BirthdayInDaysCommand(CommandInterface):
             days_until = (current_year_birthday - today).days
 
             if days_range is None or days_until <= days_range:
-                upcoming_contacts.append((contact.name, birthday_date.strftime("%Y-%m-%d"), days_until))
+                upcoming_contacts.append((contact.name, birthday_date.strftime("%d %B"), days_until))
 
         if upcoming_contacts:
             output.display_message(Message("Upcoming birthdays:"))
