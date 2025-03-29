@@ -39,7 +39,10 @@ class FindContactCommand(CommandInterface):
             )
             return
 
-        output.info(Message(f"Enter the {field} to search for:"))
+        if field == "birthday":
+            output.info(Message("Enter the birthday to filter by (YYYY-MM-DD):"))
+        else:
+            output.info(Message(f"Enter the {field} to filter by:"))
         value = input.input().text
 
         results = search_methods[field](value)

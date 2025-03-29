@@ -21,18 +21,18 @@ class AddNoteCommand(CommandInterface):
         return "add_note"
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
-        output.display_message(Message("Enter the note title:"))
+        output.info(Message("Enter the note title:"))
         title = input.input().text
 
-        output.display_message(Message("Enter the note:"))
+        output.info(Message("Enter the note:"))
         note = input.input().text
 
-        output.display_message(Message("Would you like to add tags? (yes/no)"))
+        output.info(Message("Would you like to add tags? (yes/no)"))
         add_tags = input.input(["yes", "no"]).text
         tags = []
 
         if add_tags == "yes":
-            output.display_message(Message("Enter the tags separated by commas:"))
+            output.info(Message("Enter the tags separated by commas:"))
             tags = input.input().text.split(",")
             tags = [tag.strip() for tag in tags]
             tags = [tag for tag in tags if tag]
@@ -40,4 +40,4 @@ class AddNoteCommand(CommandInterface):
         note = Note(title, note, tags)
         self.repository.create(note)
 
-        output.display_message(Message(f"Note {note.title} added successfully!"))
+        output.success(Message(f"Note {note.title} added successfully!"))

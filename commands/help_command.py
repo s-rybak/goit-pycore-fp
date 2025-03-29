@@ -29,13 +29,13 @@ class HelpCommand(CommandInterface):
             command = self.registry.get_command(command_name)
 
             if command:
-                output.display_message(Message(f"Help for command: {command.name}"))
-                output.display_message(Message(f"Description: {command.description}"))
-                output.display_message(Message(f"Usage: {command.call_name}"))
+                output.info(Message(f"Help for command: {command.name}"))
+                output.info(Message(f"Description: {command.description}"))
+                output.info(Message(f"Usage: {command.call_name}"))
             else:
                 output.error(Message(f"Command '{command_name}' not found."))
         else:
-            output.display_message(Message("Available commands:"))
+            output.info(Message("Available commands:"))
             output.table(
                 Table(
                     headers=["Command", "Description"],

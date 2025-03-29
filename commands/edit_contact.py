@@ -43,7 +43,7 @@ class EditContactCommand(CommandInterface):
 
         contact_id_to_edit = user_input.split(" | ")[-1]
 
-        output.display_message(
+        output.info(
             Message("Enter the field to edit (name, phone, email, address, birthday):")
         )
         field = input.input(["name", "phone", "email", "address", "birthday"]).text
@@ -54,7 +54,7 @@ class EditContactCommand(CommandInterface):
 
         new_value = ""
         while True:
-            output.display_message(Message(f"Enter new value for {field}:"))
+            output.info(Message(f"Enter new value for {field}:"))
             new_value = input.input().text
 
             if field == "name" and not validate_name(new_value):

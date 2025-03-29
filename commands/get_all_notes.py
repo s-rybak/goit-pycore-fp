@@ -41,7 +41,7 @@ class GetAllNotesCommand(CommandInterface):
         )
 
         while True:
-            output.display_message(
+            output.info(
                 Message(
                     "You are in the active table. Type 'filter' to filter table rows, 'sort' to sort table rows, 'exit' to go back."
                 )
@@ -52,10 +52,10 @@ class GetAllNotesCommand(CommandInterface):
 
             match (subcmd):
                 case "filter":
-                    output.display_message(Message("Enter the field to filter by:"))
+                    output.info(Message("Enter the field to filter by:"))
                     filter = input.input(search_methods.keys()).command
                     if filter not in search_methods.keys():
-                        output.display_message(
+                        output.warning(
                             Message(
                                 "Invalid field. Use: "
                                 + ", ".join(search_methods.keys())
@@ -70,29 +70,27 @@ class GetAllNotesCommand(CommandInterface):
                     if filter == "show_all":
                         notes = search_methods[filter]()
                     else:
-                        output.display_message(Message("Enter the value to filter by:"))
+                        output.info(Message("Enter the value to filter by:"))
                         value = input.input(autocomplete).text
                         notes = search_methods[filter](value)
 
                 case "sort":
-                    output.display_message(
+                    output.info(
                         Message(
                             "Enter the field to sort by: " + ", ".join(sort_methods)
                         )
                     )
                     sort = input.input(sort_methods).command
                     if sort not in sort_methods:
-                        output.display_message(
+                        output.warning(
                             Message("Invalid field. Use: " + ", ".join(sort_methods))
                         )
                         continue
 
-                    output.display_message(
-                        Message("Enter the order: " + ", ".join(order_methods))
-                    )
+                    output.info(Message("Enter the order: " + ", ".join(order_methods)))
                     order = input.input(order_methods).command
                     if order not in order_methods:
-                        output.display_message(
+                        output.warning(
                             Message("Invalid order. Use: " + ", ".join(order_methods))
                         )
                         continue

@@ -44,7 +44,7 @@ class ConsoleOutput(OutputInterface):
 
     def info(self, msg: Message):
         """Print info message"""
-        self._format_message(msg, "blue", "ℹ️")
+        self._format_message(msg, "blue", "ℹ️ ")
 
     def hint(self, msg: Message):
         """Print hint message"""

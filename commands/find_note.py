@@ -21,8 +21,8 @@ class FindNoteCommand(CommandInterface):
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
         if len(args) < 2:
-            output.display_message(
-                Message("Usage: find_note <field> <value>. Fields: title, note")
+            output.info(
+                Message("Usage: find_note <field> <value>. Fields: title, note, tag")
             )
             return
 
@@ -34,15 +34,17 @@ class FindNoteCommand(CommandInterface):
         }
 
         if field not in search_methods:
-            output.display_message(Message("Invalid field. Use: title, note, tag"))
+            output.error(Message("Invalid field. Use: title, note, tag"))
             return
 
         results = search_methods[field](value)
         if results:
             output.table(
                 Table(
-                    headers=["ID", "Title", "Note"],
-                    data=[[c.id, c.title, c.note] for c in results],
+                    headers=["ID", "Title", "Note", "Tags"],
+                    data=[
+                        [c.id, c.title, c.note, ", ".join(c.tags[:3])] for c in results
+                    ],
                 )
             )
         else:

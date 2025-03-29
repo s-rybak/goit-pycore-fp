@@ -1,6 +1,6 @@
 from commands.base import CommandInterface
 from repositories.note_repository import NoteRepository
-from input_output.base import InputInterface, OutputInterface, Message
+from input_output.base import InputInterface, OutputInterface, Message, Table
 
 
 class DeleteNoteCommand(CommandInterface):
@@ -20,11 +20,13 @@ class DeleteNoteCommand(CommandInterface):
         return "delete_note"
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
-        output.info("Please enter the title of the user you want to delete:")
+        output.info("Please enter the title of the note you want to delete:")
 
         notes = self._note_repository.getAll()
 
-        hints = [f"{note.title} | {note.id} | {note.note}" for note in notes]
+        hints = [
+            f"{note.title} | {note.id} | {', '.join(note.tags[:3])}" for note in notes
+        ]
 
         user_input = input.input(hints).text
 
@@ -32,7 +34,8 @@ class DeleteNoteCommand(CommandInterface):
             output.display_message(Message("No matching note found."))
             return
 
-        parts = user_input.split(" | ", maxsplit=2)
+        parts = user_input.split("|", maxsplit=2)
+        parts = [part.strip() for part in parts]
 
         if len(parts) < 2:
             output.error("Invalid input format. Please select a valid note.")
@@ -40,6 +43,36 @@ class DeleteNoteCommand(CommandInterface):
 
         note_title_to_delete = parts[0]
         note_id_to_delete = parts[1]
+        print(note_id_to_delete)
+
+        note_to_delete = self._note_repository.findById(note_id_to_delete)
+
+        if not note_to_delete:
+            output.error("Note not found.")
+            return
+
+        output.warning(
+            "Are you sure you want to delete this note?\n\nType 'yes' to confirm, or anything else to cancel."
+        )
+        output.table(
+            Table(
+                headers=["ID", "Title", "Note", "Tags"],
+                data=[
+                    [
+                        note_to_delete.id,
+                        note_to_delete.title,
+                        note_to_delete.note,
+                        ", ".join(note_to_delete.tags),
+                    ]
+                ],
+            )
+        )
+
+        user_confirmation = input.input(["yes", "no"]).text
+
+        if user_confirmation != "yes":
+            output.display_message(Message("Deletion cancelled."))
+            return
 
         if self._note_repository.delete(note_id_to_delete):
             output.success(

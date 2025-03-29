@@ -74,14 +74,18 @@ python main.py
 Once the application is running, you can use the following commands:
 
 - `help` - Display all available commands or get help for a specific command
+- `all_contacts` - Get all contacts
 - `add_contact` - Add a new contact
-- `find` - Find contacts by name, phone, email, address or birthday
-- `edit` - Edit an existing contact
-- `delete` - Delete a contact
-- `test_all_contacts` - Display all contacts
-- `greet` - Simple greeting command
+- `find_contact` - Find contacts by name, phone, email, address or birthday
+- `edit_contact` - Edit contact by name
+- `delete_contact` - Delete contact by name
+- `add_note` - Add a new note
+- `all_notes` - Get all notes
+- `edit_note` - Edit note by title
+- `find_note` - Find notes by title and content
+- `delete_note` - Delete note by title
+- `birthday_in_days` - Display contacts with birthdays in the N days
 - `exit` / `quit` / `bye` - Exit the application
-
 
 ### Example Commands
 
@@ -89,14 +93,14 @@ Once the application is running, you can use the following commands:
 # Add a new contact
 add_contact
 
-# Find a contact by name
-find name Guido van Rossum 
+# Shaw all notes
+all_notes
 
 # Edit a contact
-edit
+edit_contact
 
 # Delete a contact
-delete
+delete_contact
 
 # Display all commands and their descriptions
 help

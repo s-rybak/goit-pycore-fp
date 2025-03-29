@@ -35,7 +35,9 @@ class NoteRepository(StorageRepositoryInterface):
         return self.__sort_notes(
             self.storage.find(
                 lambda note: note.note and search.lower() in note.note.lower()
-            )
+            ),
+            order_by,
+            order,
         )
 
     def findByTitle(

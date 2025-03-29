@@ -31,7 +31,7 @@ class AddContactCommand(CommandInterface):
 
         name = ""
         while not validate_name(name):
-            output.display_message(Message("Enter the name of the contact:"))
+            output.info(Message("Enter the name of the contact:"))
             name = input.input().text
             if not validate_name(name):
                 output.error(Message("Please enter a valid name (2-10 letters)."))
@@ -46,7 +46,7 @@ class AddContactCommand(CommandInterface):
 
         phone = ""
         while not validate_phone(phone):
-            output.display_message(Message("Enter the phone number of the contact:"))
+            output.info(Message("Enter the phone number of the contact:"))
             phone = input.input().text
             if not validate_phone(phone):
                 output.error(
@@ -57,7 +57,7 @@ class AddContactCommand(CommandInterface):
 
         email = ""
         while not validate_email(email):
-            output.display_message(Message("Enter the email of the contact:"))
+            output.info(Message("Enter the email of the contact:"))
             email = input.input().text
             if not validate_email(email):
                 output.error(
@@ -66,14 +66,14 @@ class AddContactCommand(CommandInterface):
 
         address = ""
         while not validate_address(address):
-            output.display_message(Message("Enter the address of the contact:"))
+            output.info(Message("Enter the address of the contact:"))
             address = input.input().text
             if not validate_address(address):
                 output.error(Message("Address must be at least 5 characters long."))
 
         birthday = ""
         while not validate_birthday(birthday):
-            output.display_message(Message("Enter the birthday (YYYY-MM-DD):"))
+            output.info(Message("Enter the birthday (YYYY-MM-DD):"))
             birthday = input.input().text
             if not validate_birthday(birthday):
                 output.error(
@@ -85,4 +85,4 @@ class AddContactCommand(CommandInterface):
         contact = Contact(name, phone, email, address, birthday)
         self.repository.create(contact)
 
-        output.display_message(Message(f"Contact {contact.name} added successfully!"))
+        output.success(Message(f"Contact {contact.name} added successfully!"))

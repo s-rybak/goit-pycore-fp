@@ -41,14 +41,14 @@ class EditNoteCommand(CommandInterface):
 
         note_id_to_edit = parts[1]
 
-        output.display_message(Message("Enter the field to edit (title, note):"))
+        output.info(Message("Enter the field to edit (title, note):"))
         field = input.input(["title", "note"]).command
 
         if field not in ("title", "note"):
             output.error(Message("Invalid field."))
             return
 
-        output.display_message(Message(f"Enter new value for {field}:"))
+        output.info(Message(f"Enter new value for {field}:"))
         new_value = input.input().text
 
         updated_note = self._note_repository.findById(note_id_to_edit)

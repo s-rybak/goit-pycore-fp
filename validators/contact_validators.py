@@ -19,7 +19,7 @@ def validate_phone(phone: str) -> bool:
 def validate_name(name: str) -> bool:
     if not name.strip():
         return False
-    pattern = r"^[a-zA-Zа-яА-ЯїЇєЄіІ' -]{2,10}$"
+    pattern = r"^[a-zA-Zа-яА-ЯїЇєЄіІ' -]{2,100}$"
     return re.match(pattern, name) is not None
 
 
@@ -30,6 +30,10 @@ def validate_address(address: str) -> bool:
 
 
 def validate_birthday(birthday: str) -> bool:
-    return bool(birthday.strip()) and bool(
-        re.match(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$", birthday)
-    )
+    if not birthday.strip():
+        return False
+    try:
+        datetime.strptime(birthday, "%Y-%m-%d")
+        return True
+    except ValueError:
+        return False

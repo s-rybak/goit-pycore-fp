@@ -23,14 +23,13 @@ class BirthdayInDaysCommand(CommandInterface):
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
 
         try:
-            output.display_message(
-                Message("Enter the number of days to filter birthdays.")
-            )
+            output.info(Message("Enter the number of days to filter birthdays."))
             days_range_input = input.input().text.strip()
             days_range = int(days_range_input) if days_range_input else None
         except ValueError:
             output.error(Message("Invalid input. Showing all upcoming birthdays."))
             days_range = None
+            return
 
         today = datetime.today().date()
         upcoming_contacts = []
@@ -72,7 +71,7 @@ class BirthdayInDaysCommand(CommandInterface):
                 )
 
         if upcoming_contacts:
-            output.display_message(Message("Upcoming birthdays:"))
+            output.success(Message("Upcoming birthdays:"))
             for name, birthday, days_until in sorted(
                 upcoming_contacts, key=lambda x: x[2]
             ):
