@@ -20,7 +20,7 @@ class FindNoteCommand(CommandInterface):
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
         if len(args) < 2:
-            output.display_message(Message("Usage: find <field> <value>. Fields: title, note"))
+            output.display_message(Message("Usage: find_note <field> <value>. Fields: title, note"))
             return
 
         field, value = args[0], " ".join(args[1:])

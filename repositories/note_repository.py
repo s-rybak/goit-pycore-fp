@@ -25,6 +25,9 @@ class NoteRepository(StorageRepositoryInterface):
 
     def findByTitle(self, title: str) -> list[Note]:
         return self.storage.find(lambda note: note.title == title)
-
+    
     def getAll(self) -> list[Note]:
         return self.storage.getAll()
+    
+    def findById(self, id: str) -> Note:
+        return self.storage.getById(id)
