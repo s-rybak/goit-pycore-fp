@@ -20,10 +20,7 @@ class BirthdayInDaysCommand(CommandInterface):
         return "birthday_in_days"
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
-        """
-        Displays a list of contacts with their birthdays and the number of days until their next birthday.
-        Allows the user to specify a range of days to filter the results.
-        """
+
         try:
             output.display_message(Message("Enter the number of days to filter birthdays."))
             days_range_input = input.input().text.strip()
@@ -32,7 +29,7 @@ class BirthdayInDaysCommand(CommandInterface):
             output.error(Message("Invalid input. Showing all upcoming birthdays."))
             days_range = None
 
-        today = datetime.today()
+        today = datetime.today().date()
         upcoming_contacts = []
 
         contacts = self.repository.getAll()
@@ -44,7 +41,7 @@ class BirthdayInDaysCommand(CommandInterface):
 
             try:
                 cleaned_birthday = contact.birthday.strip() 
-                birthday_date = datetime.strptime(cleaned_birthday, "%Y-%m-%d")
+                birthday_date = datetime.strptime(cleaned_birthday, "%Y-%m-%d").date()
             except ValueError:
                 output.error(Message(f"Invalid birthday format for contact {contact.name}. Expected format is YYYY-MM-DD."))
                 continue
@@ -57,7 +54,7 @@ class BirthdayInDaysCommand(CommandInterface):
             days_until = (current_year_birthday - today).days
 
             if days_range is None or days_until <= days_range:
-                upcoming_contacts.append((contact.name, birthday_date.strftime("%d %B"), days_until))
+                upcoming_contacts.append((contact.name, current_year_birthday.strftime("%d %B"), days_until))
 
         if upcoming_contacts:
             output.display_message(Message("Upcoming birthdays:"))
@@ -65,5 +62,3 @@ class BirthdayInDaysCommand(CommandInterface):
                 output.display_message(Message(f"{name}: {birthday} (in {days_until} days)"))
         else:
             output.warning(Message("No contacts have valid birthday information or no birthdays within the specified range."))
-
-

@@ -2,7 +2,7 @@ from commands.base import CommandInterface
 from input_output.base import InputInterface, OutputInterface, Message
 from repositories.contact_repository import ContactRepository
 from entities.contact import Contact
-from validators.email_phone_validators import validate_email, validate_phone
+from validators.contact_validators import validate_email, validate_phone, validate_name, validate_address, validate_birthday
 
 
 class AddContactCommand(CommandInterface):
@@ -22,8 +22,17 @@ class AddContactCommand(CommandInterface):
         return "add_contact"
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
-        output.display_message(Message("Enter the name of the contact:"))
-        name = input.input().text
+
+        name = ""
+        while not validate_name(name):
+            output.display_message(Message("Enter the name of the contact:"))
+            name = input.input().text
+            if not validate_name(name):
+                output.error(Message("Please enter a valid name (2-10 letters)."))
+
+            if self.repository.findByName(name):
+                output.error(Message(f"A contact with the name '{name}' already exists. Please enter a different name."))
+                name = ""
 
         phone = ""
         while not validate_phone(phone):
@@ -39,11 +48,19 @@ class AddContactCommand(CommandInterface):
             if not validate_email(email):
                 output.error(Message("Please enter a valid email. Example: user@example.com"))
 
-        output.display_message(Message("Enter the address of the contact:"))
-        address = input.input().text
+        address = ""
+        while not validate_address(address):
+            output.display_message(Message("Enter the address of the contact:"))
+            address = input.input().text
+            if not validate_address(address):
+                output.error(Message("Address must be at least 5 characters long."))
 
-        output.display_message(Message("Enter the birthday (YYYY-MM-DD):"))
-        birthday = input.input().text
+        birthday = ""
+        while not validate_birthday(birthday):
+            output.display_message(Message("Enter the birthday (YYYY-MM-DD):"))
+            birthday = input.input().text
+            if not validate_birthday(birthday):
+                output.error(Message("Invalid birthday format. Please enter a valid date in YYYY-MM-DD format."))
 
         contact = Contact(name, phone, email, address, birthday)
         self.repository.create(contact)
