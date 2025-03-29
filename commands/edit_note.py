@@ -27,8 +27,7 @@ class EditNoteCommand(CommandInterface):
 
         hints = [f"{note.title} | {note.id} | {note.note}" for note in notes]
 
-        user_input = input.input(hints)
-        user_input = str(user_input) 
+        user_input = input.input(hints).text
 
         if not user_input:
             output.display_message(Message("No matching note found."))
