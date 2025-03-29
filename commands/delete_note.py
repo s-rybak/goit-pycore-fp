@@ -43,9 +43,7 @@ class DeleteNoteCommand(CommandInterface):
 
         if self._note_repository.delete(note_id_to_delete):
             output.success(
-                f"Note \"{note_title_to_delete}\" has been deleted successfully."
+                f'Note "{note_title_to_delete}" has been deleted successfully.'
             )
         else:
-            output.error(
-                f"Failed to delete the note with ID {note_id_to_delete}."
-            )
+            output.error(f"Failed to delete the note with ID {note_id_to_delete}.")

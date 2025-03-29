@@ -18,6 +18,7 @@ from commands.find_note import FindNoteCommand
 from commands.help_command import HelpCommand
 from commands.find_upcoming_birthdays import BirthdayInDaysCommand
 
+
 class CommandRegistry:
     def __init__(self):
         self.commands = {}

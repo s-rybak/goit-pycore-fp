@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 from input_output.base import InputInterface, OutputInterface
 
+
 class CommandInterface(ABC):
     @property
     @abstractmethod
@@ -25,4 +26,3 @@ class CommandInterface(ABC):
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
         """Execute command"""
         pass
-    

@@ -2,6 +2,7 @@ from commands.base import CommandInterface
 from input_output.base import InputInterface, OutputInterface, Message, Table
 from repositories.note_repository import NoteRepository
 
+
 class FindNoteCommand(CommandInterface):
     @property
     def name(self) -> str:
@@ -20,13 +21,15 @@ class FindNoteCommand(CommandInterface):
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
         if len(args) < 2:
-            output.display_message(Message("Usage: find_note <field> <value>. Fields: title, note"))
+            output.display_message(
+                Message("Usage: find_note <field> <value>. Fields: title, note")
+            )
             return
 
         field, value = args[0], " ".join(args[1:])
         search_methods = {
             "title": self.note_repository.findByTitle,
-            "note": self.note_repository.findContains
+            "note": self.note_repository.findContains,
         }
 
         if field not in search_methods:
@@ -35,7 +38,11 @@ class FindNoteCommand(CommandInterface):
 
         results = search_methods[field](value)
         if results:
-            output.table(Table(headers=["ID", "Title", "Note"],
-                               data=[[c.id, c.title, c.note] for c in results]))
+            output.table(
+                Table(
+                    headers=["ID", "Title", "Note"],
+                    data=[[c.id, c.title, c.note] for c in results],
+                )
+            )
         else:
             output.display_message(Message("No notes found."))

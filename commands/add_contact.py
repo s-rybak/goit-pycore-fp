@@ -2,7 +2,13 @@ from commands.base import CommandInterface
 from input_output.base import InputInterface, OutputInterface, Message
 from repositories.contact_repository import ContactRepository
 from entities.contact import Contact
-from validators.contact_validators import validate_email, validate_phone, validate_name, validate_address, validate_birthday
+from validators.contact_validators import (
+    validate_email,
+    validate_phone,
+    validate_name,
+    validate_address,
+    validate_birthday,
+)
 
 
 class AddContactCommand(CommandInterface):
@@ -31,7 +37,11 @@ class AddContactCommand(CommandInterface):
                 output.error(Message("Please enter a valid name (2-10 letters)."))
 
             if self.repository.findByName(name):
-                output.error(Message(f"A contact with the name '{name}' already exists. Please enter a different name."))
+                output.error(
+                    Message(
+                        f"A contact with the name '{name}' already exists. Please enter a different name."
+                    )
+                )
                 name = ""
 
         phone = ""
@@ -39,14 +49,20 @@ class AddContactCommand(CommandInterface):
             output.display_message(Message("Enter the phone number of the contact:"))
             phone = input.input().text
             if not validate_phone(phone):
-                output.error(Message("Please enter a valid phone number. Example: +380971234567 or 380971234567"))
+                output.error(
+                    Message(
+                        "Please enter a valid phone number. Example: +380971234567 or 380971234567"
+                    )
+                )
 
         email = ""
         while not validate_email(email):
             output.display_message(Message("Enter the email of the contact:"))
             email = input.input().text
             if not validate_email(email):
-                output.error(Message("Please enter a valid email. Example: user@example.com"))
+                output.error(
+                    Message("Please enter a valid email. Example: user@example.com")
+                )
 
         address = ""
         while not validate_address(address):
@@ -60,7 +76,11 @@ class AddContactCommand(CommandInterface):
             output.display_message(Message("Enter the birthday (YYYY-MM-DD):"))
             birthday = input.input().text
             if not validate_birthday(birthday):
-                output.error(Message("Invalid birthday format. Please enter a valid date in YYYY-MM-DD format."))
+                output.error(
+                    Message(
+                        "Invalid birthday format. Please enter a valid date in YYYY-MM-DD format."
+                    )
+                )
 
         contact = Contact(name, phone, email, address, birthday)
         self.repository.create(contact)
