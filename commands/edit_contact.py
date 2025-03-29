@@ -18,7 +18,7 @@ class EditContactCommand(CommandInterface):
 
     @property
     def call_name(self) -> str:
-        return "edit"
+        return "edit_contact"
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
         output.info("Please enter the name of the user you want to delete:")
@@ -28,8 +28,6 @@ class EditContactCommand(CommandInterface):
         hints = [f"{contact.name} {contact.phone} {contact.id}" for contact in contacts]
 
         user_input = input.input(hints)
-        print("user_input", user_input)
-
         contact_id_to_edit = user_input.args[1]
 
         if not user_input:

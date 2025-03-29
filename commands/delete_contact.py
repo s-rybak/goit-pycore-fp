@@ -17,7 +17,7 @@ class DeleteContactCommand(CommandInterface):
 
     @property
     def call_name(self) -> str:
-        return "delete"
+        return "delete_contact"
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
         output.info("Please enter the name of the user you want to delete:")
