@@ -80,6 +80,7 @@ Once the application is running, you can use the following commands:
 - `delete` - Delete a contact
 - `test_all_contacts` - Display all contacts
 - `greet` - Simple greeting command
+- `birthday_in_days` - Display contacts with birthdays in the N days 
 - `exit` / `quit` / `bye` - Exit the application
 
 
@@ -100,6 +101,12 @@ delete
 
 # Display all commands and their descriptions
 help
+
+# Display all contacts
+test_all_contacts
+
+# Display contacts with birthdays in the N days
+birthday_in_days
 ```
 
 ## Project Team
