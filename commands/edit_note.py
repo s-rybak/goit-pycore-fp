@@ -32,7 +32,7 @@ class EditNoteCommand(CommandInterface):
         if not user_input:
             output.display_message(Message("No matching note found."))
             return
-        
+
         parts = user_input.split(" | ", maxsplit=2)
 
         if len(parts) < 2:
@@ -41,11 +41,8 @@ class EditNoteCommand(CommandInterface):
 
         note_id_to_edit = parts[1]
 
-        output.display_message(
-            Message("Enter the field to edit (title, note):")
-        )
-        field_input = input.input()
-        field = field_input.command
+        output.display_message(Message("Enter the field to edit (title, note):"))
+        field = input.input(["title", "note"]).command
 
         if field not in ("title", "note"):
             output.error(Message("Invalid field."))

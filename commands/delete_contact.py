@@ -24,8 +24,10 @@ class DeleteContactCommand(CommandInterface):
 
         contacts = self._contact_repository.getAll()
 
-        hints = [f"{contact.name} | {contact.phone} | {contact.id}" for contact in contacts]
-        user_input = input.input(hints)
+        hints = [
+            f"{contact.name} | {contact.phone} | {contact.id}" for contact in contacts
+        ]
+        user_input = input.input(hints).text
 
         if not user_input:
             output.display_message(Message("No input received. Operation aborted."))
@@ -34,8 +36,11 @@ class DeleteContactCommand(CommandInterface):
         contact_id_to_delete = user_input.text.split(" | ")[-1]
         contact_to_delete = self._contact_repository.findById(contact_id_to_delete)
 
-        output.warning("Are you sure you want to delete this contact?\n\nType 'yes' to confirm, or anything else to cancel.")
-        output.table(Table(
+        output.warning(
+            "Are you sure you want to delete this contact?\n\nType 'yes' to confirm, or anything else to cancel."
+        )
+        output.table(
+            Table(
                 headers=["ID", "Name", "Phone", "Email", "Address", "Birthday"],
                 data=[
                     [
@@ -50,7 +55,7 @@ class DeleteContactCommand(CommandInterface):
             )
         )
 
-        confirmation = input.input(['yes','no']).command.lower()
+        confirmation = input.input(["yes", "no"]).command.lower()
         if confirmation != "yes":
             output.display_message("Operation cancelled.")
             return
@@ -60,6 +65,4 @@ class DeleteContactCommand(CommandInterface):
                 f"Contact {contact_to_delete.name} has been deleted successfully."
             )
         else:
-            output.error(
-                f"Failed to delete the contact."
-            )
+            output.error(f"Failed to delete the contact.")
