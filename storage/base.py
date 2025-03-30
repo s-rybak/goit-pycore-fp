@@ -6,11 +6,11 @@ class StorageInterface(ABC):
     def save(self, data: any) -> str:
         pass
 
-    def getNextId(self) -> str:
+    def get_next_id(self) -> str:
         pass
 
     @abstractmethod
-    def getAll(self) -> list[any]:
+    def get_all(self) -> list[any]:
         pass
 
     @abstractmethod
@@ -18,7 +18,7 @@ class StorageInterface(ABC):
         pass
 
     @abstractmethod
-    def getById(self, id: str) -> any:
+    def get_by_id(self, id: str) -> any:
         pass
 
     @abstractmethod

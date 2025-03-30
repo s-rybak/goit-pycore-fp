@@ -30,7 +30,7 @@ class EditContactCommand(CommandInterface):
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
         output.info("Please enter the name of the user you want to edit:")
 
-        contacts = self._contact_repository.getAll()
+        contacts = self._contact_repository.get_all()
 
         hints = [
             f"{contact.name} | {contact.phone} | {contact.id}" for contact in contacts
@@ -96,7 +96,7 @@ class EditContactCommand(CommandInterface):
                 continue
             break
 
-        updated_contact = self._contact_repository.findById(contact_id_to_edit)
+        updated_contact = self._contact_repository.find_by_id(contact_id_to_edit)
         setattr(updated_contact, field, new_value)
 
         self._contact_repository.update(updated_contact)

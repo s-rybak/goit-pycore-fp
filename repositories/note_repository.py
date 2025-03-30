@@ -17,7 +17,7 @@ class NoteRepository(StorageRepositoryInterface):
         )
 
     def create(self, data: Note) -> str:
-        id = self.storage.getNextId()
+        id = self.storage.get_next_id()
         data.id = id
         self.storage.save(data, id)
         return id
@@ -29,7 +29,7 @@ class NoteRepository(StorageRepositoryInterface):
     def delete(self, id: str) -> bool:
         return self.storage.delete(id)
 
-    def findContains(
+    def find_contains(
         self, search: str, order_by: str = "title", order: str = "asc"
     ) -> list[Note]:
         return self.__sort_notes(
@@ -40,29 +40,29 @@ class NoteRepository(StorageRepositoryInterface):
             order,
         )
 
-    def findByTitle(
+    def find_by_title(
         self, title: str, order_by: str = "title", order: str = "asc"
     ) -> list[Note]:
         return self.__sort_notes(
             self.storage.find(lambda note: note.title == title), order_by, order
         )
 
-    def findByTag(
+    def find_by_tag(
         self, tag: str, order_by: str = "title", order: str = "asc"
     ) -> list[Note]:
         return self.__sort_notes(
             self.storage.find(lambda note: tag in note.tags), order_by, order
         )
 
-    def getAllTagsSorted(self) -> set[str]:
-        return set([tag for note in self.getAll() for tag in note.tags])
+    def get_all_tags_sorted(self) -> set[str]:
+        return set([tag for note in self.get_all() for tag in note.tags])
 
-    def getAll(
+    def get_all(
         self,
         order_by: str = "title",
         order: str = "asc",
     ) -> list[Note]:
-        return self.__sort_notes(self.storage.getAll(), order_by, order)
+        return self.__sort_notes(self.storage.get_all(), order_by, order)
 
-    def findById(self, id: str) -> Note:
-        return self.storage.getById(id)
+    def find_by_id(self, id: str) -> Note:
+        return self.storage.get_by_id(id)

@@ -36,7 +36,7 @@ class AddContactCommand(CommandInterface):
             if not validate_name(name):
                 output.error(Message("Please enter a valid name (2-10 letters)."))
 
-            if self.repository.findByName(name):
+            if self.repository.find_by_name(name):
                 output.error(
                     Message(
                         f"A contact with the name '{name}' already exists. Please enter a different name."

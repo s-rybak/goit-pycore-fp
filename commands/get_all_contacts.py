@@ -21,7 +21,7 @@ class AllContactsCommand(CommandInterface):
         return "all_contacts"
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
-        contacts = self.repository.getAll()
+        contacts = self.repository.get_all()
         output.table(
             Table(
                 headers=["Name", "Phone", "Email", "Address", "Birthday"],

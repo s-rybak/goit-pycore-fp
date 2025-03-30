@@ -26,11 +26,11 @@ class FindContactCommand(CommandInterface):
         field = input.input(["name", "phone", "email", "address", "birthday"]).text
 
         search_methods = {
-            "name": self.contact_repository.findByName,
-            "phone": self.contact_repository.findByPhone,
-            "email": self.contact_repository.findByEmail,
-            "address": self.contact_repository.findByAddress,
-            "birthday": self.contact_repository.findByBirthday,
+            "name": self.contact_repository.find_by_name,
+            "phone": self.contact_repository.find_by_phone,
+            "email": self.contact_repository.find_by_email,
+            "address": self.contact_repository.find_by_address,
+            "birthday": self.contact_repository.find_by_birthday,
         }
 
         if field not in search_methods:

@@ -8,7 +8,7 @@ class ContactRepository(StorageRepositoryInterface):
         self.storage = storage
 
     def create(self, data: Contact) -> str:
-        id = self.storage.getNextId()
+        id = self.storage.get_next_id()
         data.id = id
         self.storage.save(data, id)
         return id
@@ -20,26 +20,26 @@ class ContactRepository(StorageRepositoryInterface):
     def delete(self, id: str) -> bool:
         return self.storage.delete(id)
 
-    def findStartsWith(self, search: str) -> list[Contact]:
+    def find_starts_with(self, search: str) -> list[Contact]:
         return self.storage.find(lambda contact: contact.name.startswith(search))
 
-    def findByName(self, name: str) -> list[Contact]:
+    def find_by_name(self, name: str) -> list[Contact]:
         return self.storage.find(lambda contact: contact.name == name)
 
-    def findByPhone(self, phone: str) -> list[Contact]:
+    def find_by_phone(self, phone: str) -> list[Contact]:
         return self.storage.find(lambda contact: contact.phone == phone)
 
-    def findByEmail(self, email: str) -> list[Contact]:
+    def find_by_email(self, email: str) -> list[Contact]:
         return self.storage.find(lambda contact: contact.email == email)
 
-    def findByAddress(self, address: str) -> list[Contact]:
+    def find_by_address(self, address: str) -> list[Contact]:
         return self.storage.find(lambda contact: contact.address == address)
 
-    def findByBirthday(self, birthday: str) -> list[Contact]:
+    def find_by_birthday(self, birthday: str) -> list[Contact]:
         return self.storage.find(lambda contact: contact.birthday == birthday)
 
-    def getAll(self) -> list[Contact]:
-        return self.storage.getAll()
+    def get_all(self) -> list[Contact]:
+        return self.storage.get_all()
 
-    def findById(self, id: str) -> Contact | None:
-        return self.storage.getById(id)
+    def find_by_id(self, id: str) -> Contact | None:
+        return self.storage.get_by_id(id)

@@ -22,7 +22,7 @@ class DeleteContactCommand(CommandInterface):
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
         output.info("Please enter the name of the user you want to delete:")
 
-        contacts = self._contact_repository.getAll()
+        contacts = self._contact_repository.get_all()
 
         hints = [
             f"{contact.name} | {contact.phone} | {contact.id}" for contact in contacts
@@ -34,7 +34,7 @@ class DeleteContactCommand(CommandInterface):
             return
 
         contact_id_to_delete = user_input.split(" | ")[-1]
-        contact_to_delete = self._contact_repository.findById(contact_id_to_delete)
+        contact_to_delete = self._contact_repository.find_by_id(contact_id_to_delete)
 
         output.warning(
             "Are you sure you want to delete this contact?\n\nType 'yes' to confirm, or anything else to cancel."

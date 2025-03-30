@@ -28,9 +28,9 @@ class FindNoteCommand(CommandInterface):
 
         field, value = args[0], " ".join(args[1:])
         search_methods = {
-            "title": self.note_repository.findByTitle,
-            "note": self.note_repository.findContains,
-            "tag": self.note_repository.findByTag,
+            "title": self.note_repository.find_by_title,
+            "note": self.note_repository.find_contains,
+            "tag": self.note_repository.find_by_tag,
         }
 
         if field not in search_methods:

@@ -21,14 +21,14 @@ class GetAllNotesCommand(CommandInterface):
         return "all_notes"
 
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
-        notes = self.repository.getAll("title", "desc")
-        tags = self.repository.getAllTagsSorted()
+        notes = self.repository.get_all("title", "desc")
+        tags = self.repository.get_all_tags_sorted()
 
         search_methods = {
-            "title": self.repository.findByTitle,
-            "note": self.repository.findContains,
-            "tag": self.repository.findByTag,
-            "show_all": self.repository.getAll,
+            "title": self.repository.find_by_title,
+            "note": self.repository.find_contains,
+            "tag": self.repository.find_by_tag,
+            "show_all": self.repository.get_all,
         }
         sort_methods = ["title", "note"]
         order_methods = ["asc", "desc"]

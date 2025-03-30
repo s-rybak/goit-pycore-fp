@@ -22,7 +22,7 @@ class DeleteNoteCommand(CommandInterface):
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
         output.info("Please enter the title of the note you want to delete:")
 
-        notes = self._note_repository.getAll()
+        notes = self._note_repository.get_all()
 
         hints = [
             f"{note.title} | {note.id} | {', '.join(note.tags[:3])}" for note in notes
@@ -45,7 +45,7 @@ class DeleteNoteCommand(CommandInterface):
         note_id_to_delete = parts[1]
         print(note_id_to_delete)
 
-        note_to_delete = self._note_repository.findById(note_id_to_delete)
+        note_to_delete = self._note_repository.find_by_id(note_id_to_delete)
 
         if not note_to_delete:
             output.error("Note not found.")

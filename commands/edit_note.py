@@ -23,7 +23,7 @@ class EditNoteCommand(CommandInterface):
     def execute(self, input: InputInterface, output: OutputInterface, args: list):
         output.info("Please enter the title of the note you want to edit:")
 
-        notes = self._note_repository.getAll()
+        notes = self._note_repository.get_all()
 
         hints = [f"{note.title} | {note.id} | {note.note}" for note in notes]
 
@@ -51,7 +51,7 @@ class EditNoteCommand(CommandInterface):
         output.info(Message(f"Enter new value for {field}:"))
         new_value = input.input().text
 
-        updated_note = self._note_repository.findById(note_id_to_edit)
+        updated_note = self._note_repository.find_by_id(note_id_to_edit)
 
         setattr(updated_note, field, new_value)
 

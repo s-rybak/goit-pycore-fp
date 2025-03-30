@@ -34,7 +34,7 @@ class BirthdayInDaysCommand(CommandInterface):
         today = datetime.today().date()
         upcoming_contacts = []
 
-        contacts = self.repository.getAll()
+        contacts = self.repository.get_all()
 
         for contact in contacts:
             if not contact.birthday:
