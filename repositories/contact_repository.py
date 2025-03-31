@@ -24,19 +24,19 @@ class ContactRepository(StorageRepositoryInterface):
         return self.storage.find(lambda contact: contact.name.startswith(search))
 
     def find_by_name(self, name: str) -> list[Contact]:
-        return self.storage.find(lambda contact: contact.name == name)
+        return self.storage.find(lambda contact: name.lower() in contact.name.lower())
 
     def find_by_phone(self, phone: str) -> list[Contact]:
-        return self.storage.find(lambda contact: contact.phone == phone)
+        return self.storage.find(lambda contact: phone.lower() in contact.phone.lower())
 
     def find_by_email(self, email: str) -> list[Contact]:
-        return self.storage.find(lambda contact: contact.email == email)
+        return self.storage.find(lambda contact: email.lower() in contact.email.lower())
 
     def find_by_address(self, address: str) -> list[Contact]:
-        return self.storage.find(lambda contact: contact.address == address)
+        return self.storage.find(lambda contact: address.lower() in contact.address.lower())
 
     def find_by_birthday(self, birthday: str) -> list[Contact]:
-        return self.storage.find(lambda contact: contact.birthday == birthday)
+        return self.storage.find(lambda contact: birthday.lower() in contact.birthday.lower())
 
     def get_all(self) -> list[Contact]:
         return self.storage.get_all()
