@@ -41,9 +41,9 @@ class FindNoteCommand(CommandInterface):
         if results:
             output.table(
                 Table(
-                    headers=["ID", "Title", "Note", "Tags"],
+                    headers=["Title", "Note", "Tags"],
                     data=[
-                        [c.id, c.title, c.note, ", ".join(c.tags[:3])] for c in results
+                        [c.title, c.note, ", ".join(c.tags[:3])] for c in results
                     ],
                 )
             )

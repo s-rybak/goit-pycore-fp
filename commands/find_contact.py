@@ -49,9 +49,9 @@ class FindContactCommand(CommandInterface):
         if results:
             output.table(
                 Table(
-                    headers=["ID", "Name", "Phone", "Email", "Address", "Birthday"],
+                    headers=["Name", "Phone", "Email", "Address", "Birthday"],
                     data=[
-                        [c.id, c.name, c.phone, c.email, c.address, c.birthday]
+                        [c.name, c.phone, c.email, c.address, c.birthday]
                         for c in results
                     ],
                 )
