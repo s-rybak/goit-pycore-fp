@@ -60,7 +60,7 @@ class EditContactCommand(CommandInterface):
             if field == "name" and not validate_name(new_value):
                 output.error(
                     Message(
-                        "Invalid name. Name must be between 2 and 10 characters and contain only letters, spaces, and certain special characters."
+                        "Invalid name. Name must be between 2 and 50 characters and contain only letters, spaces, and certain special characters."
                     )
                 )
                 continue

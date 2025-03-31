@@ -34,7 +34,7 @@ class AddContactCommand(CommandInterface):
             output.info(Message("Enter the name of the contact:"))
             name = input.input().text
             if not validate_name(name):
-                output.error(Message("Please enter a valid name (2-10 letters)."))
+                output.error(Message("Please enter a valid name (2-50 letters)."))
 
             if self.repository.find_by_name(name):
                 output.error(
