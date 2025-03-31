@@ -48,10 +48,10 @@ registry.register_command(FindContactCommand(contact_repository))
 registry.register_command(EditContactCommand(contact_repository))
 registry.register_command(DeleteContactCommand(contact_repository))
 
-registry.register_command(AddNoteCommand(note_repository))
 registry.register_command(GetAllNotesCommand(note_repository))
-registry.register_command(EditNoteCommand(note_repository))
+registry.register_command(AddNoteCommand(note_repository))
 registry.register_command(FindNoteCommand(note_repository))
+registry.register_command(EditNoteCommand(note_repository))
 registry.register_command(DeleteNoteCommand(note_repository))
 
 registry.register_command(BirthdayInDaysCommand(contact_repository))

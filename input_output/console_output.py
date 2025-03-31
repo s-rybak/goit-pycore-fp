@@ -40,7 +40,7 @@ class ConsoleOutput(OutputInterface):
 
     def warning(self, msg: Message):
         """Print warning message"""
-        self._format_message(msg, "yellow", "⚠️")
+        self._format_message(msg, "yellow", "⚠️ ")
 
     def info(self, msg: Message):
         """Print info message"""

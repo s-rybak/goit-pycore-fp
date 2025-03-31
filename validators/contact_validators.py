@@ -12,20 +12,20 @@ def validate_email(email: str) -> bool:
 def validate_phone(phone: str) -> bool:
     if not phone.strip():
         return False
-    pattern = r"^\+?[0-9]{7,15}$"
+    pattern = r"^\+?[0-9]{5,15}$"
     return re.match(pattern, phone) is not None
 
 
 def validate_name(name: str) -> bool:
     if not name.strip():
         return False
-    pattern = r"^[a-zA-Zа-яА-ЯїЇєЄіІ' -]{2,100}$"
+    pattern = r"^[0-9a-zA-Zа-яА-ЯёЁїЇєЄіІäöüßÄÖÜéáíóúūñçàèùâêîôûœæūōß\s,.'\-]{2,50}$"
     return re.match(pattern, name) is not None
 
 
 def validate_address(address: str) -> bool:
     return bool(address.strip()) and bool(
-        re.match(r"^[a-zA-Zа-яА-Я0-9\s,.'-]{5,100}$", address)
+        re.match(r"^[0-9a-zA-Zа-яА-ЯёЁїЇєЄіІäöüßÄÖÜéáíóúūñçàèùâêîôûœæūōß\s,.'\-]{5,200}$", address)
     )
 
 

@@ -44,7 +44,7 @@ class NoteRepository(StorageRepositoryInterface):
         self, title: str, order_by: str = "title", order: str = "asc"
     ) -> list[Note]:
         return self.__sort_notes(
-            self.storage.find(lambda note: note.title == title), order_by, order
+            self.storage.find(lambda note: title.lower() in note.title.lower()), order_by, order
         )
 
     def find_by_tag(
